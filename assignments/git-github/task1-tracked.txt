@@ -1,1 +1,2 @@
 This file is tracked so that git commit -a can include its modifications.
+It was modified before the `git commit -a -m` test.
