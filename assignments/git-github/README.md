@@ -12,6 +12,15 @@ a new file, a modification, or a deletion.
 
 The commands and observed output are recorded below after the exercise is run.
 
+First, I modified this tracked README and created `task1-untracked.txt`, then
+ran:
+
+```bash
+git commit -a -m "git homework: test commit all"
+```
+
+The commit included the README modification but left the new file untracked.
+
 ## Task 2: Cherry-pick
 
 The exercise creates several commits on `main`, creates a separate branch with
