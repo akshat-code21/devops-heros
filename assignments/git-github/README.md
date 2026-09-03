@@ -42,3 +42,39 @@ The exercise creates several commits on `main`, creates a separate branch with
 multiple commits, then cherry-picks one selected commit back into `main`.
 
 The final log and verification output are recorded below.
+
+On `git-homework-cherry-pick`, `git log --oneline --decorate -4` identified
+the second branch commit as the selected commit:
+
+```text
+<selected-commit> (HEAD -> git-homework-cherry-pick) git homework: selected cherry-pick change
+48cf6f9 git homework: add branch-only change
+b81c20e (main) git homework: add untracked file
+```
+
+From `main`, I ran:
+
+```bash
+git cherry-pick <selected-commit>
+```
+
+This brought `cherry-pick-selected.txt` into `main`; the branch-only file was
+not brought over.
+
+Final verification on `main`:
+
+```text
+Cherry-picked commit: <cherry-picked-commit>
+Verified: selected file exists on main
+Verified: branch-only file is absent from main
+```
+
+Final `git log --oneline --decorate -5`:
+
+```text
+<cherry-picked-commit> (HEAD -> main) git homework: selected cherry-pick change
+b81c20e git homework: add untracked file
+a6580ab git homework: test commit all
+b3e7a0f git homework: initialize assignment
+3b77bf8 (origin/main, origin/HEAD) docker-fundamentals asg done
+```
