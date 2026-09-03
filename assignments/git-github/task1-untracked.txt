@@ -1,0 +1,1 @@
+This new file demonstrates that git commit -a does not stage untracked files.
