@@ -1,19 +1,41 @@
-# Gradle and Java build outputs
-.gradle/
+.gradle
 build/
-bin/
-out/
-target/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
 *.class
 *.jar
 *.war
 
-# IDE files
+### STS / Eclipse ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
-.idea/
-*.iml
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-# OS
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code & OS ###
+.vscode/
 .DS_Store
