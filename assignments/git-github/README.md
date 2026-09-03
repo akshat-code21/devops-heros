@@ -21,6 +21,21 @@ git commit -a -m "git homework: test commit all"
 
 The commit included the README modification but left the new file untracked.
 
+Observed output:
+
+```text
+[main a6580ab] git homework: test commit all
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+?? assignments/git-github/task1-untracked.txt
+```
+
+To commit the new file, I ran:
+
+```bash
+git add assignments/git-github/task1-untracked.txt
+git commit -m "git homework: add untracked file"
+```
+
 ## Task 2: Cherry-pick
 
 The exercise creates several commits on `main`, creates a separate branch with
