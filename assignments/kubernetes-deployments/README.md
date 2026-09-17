@@ -24,6 +24,8 @@ kubectl rollout status deployment/app-rolling
 kubectl get pods -l app=app-rolling --show-labels
 ```
 
+![Rolling update v1 deployment](screenshots/rolling/v1.png)
+
 Access the application through the NodePort Service:
 
 ```bash
@@ -40,6 +42,8 @@ kubectl get pods -l app=app-rolling --show-labels
 ```
 
 During the rollout, old v1 Pods are terminated as new v2 Pods become ready. The Service remains available.
+
+![Rolling update in progress](screenshots/rolling/02.png)
 
 Check rollout history and rollback:
 
@@ -63,6 +67,8 @@ kubectl apply -f session10-k8s-core-objects/02-blue-green/deployment-green.yaml
 kubectl get pods -l app=myapp --show-labels
 ```
 
+![Blue-green deployment setup](screenshots/blue-green/01.png)
+
 ### Send traffic to Blue
 
 ```bash
@@ -74,6 +80,8 @@ minikube service myapp-service --url
 
 The selector is `app=myapp,slot=blue`, and the browser shows the Blue v1 environment.
 
+![Blue environment](screenshots/blue-green/blue-1.png)
+
 ### Switch traffic to Green
 
 ```bash
@@ -83,6 +91,8 @@ kubectl get endpoints myapp-service
 ```
 
 The Service selector changes to `app=myapp,slot=green`, switching all traffic to Green v2. Roll back by applying `service-blue.yaml` again:
+
+![Green environment](screenshots/blue-green/green-1.png)
 
 ```bash
 kubectl apply -f session10-k8s-core-objects/02-blue-green/service-blue.yaml
@@ -101,6 +111,8 @@ kubectl apply -f session10-k8s-core-objects/03-canary/deployment-stable.yaml
 kubectl rollout status deployment/app-stable
 kubectl apply -f session10-k8s-core-objects/03-canary/service.yaml
 ```
+
+![Stable canary version](screenshots/canary/stable-v1.png)
 
 Test the stable version:
 
@@ -123,6 +135,8 @@ for i in $(seq 1 20); do curl -s http://$(minikube ip):30030 | grep -o "STABLE v
 ```
 
 Increase the canary to 30%:
+
+![Canary traffic split](screenshots/canary/canary-1.png)
 
 ```bash
 kubectl scale deployment app-canary --replicas=3
@@ -159,6 +173,8 @@ kubectl get pods -l app=app-recreate
 curl http://localhost:30040
 ```
 
+![Recreate deployment v1](screenshots/recreate/v1.png)
+
 ### Update to version 2
 
 In a second terminal, watch the Pods while applying the new Deployment:
@@ -174,6 +190,8 @@ curl http://localhost:30040
 ```
 
 The old Pods terminate first, followed by a temporary period with no running Pods. The new v2 Pods then start and restore the Service.
+
+![Recreate deployment during update](screenshots/recreate/03.png)
 
 Rollback if required:
 
