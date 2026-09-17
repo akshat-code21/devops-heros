@@ -24,6 +24,8 @@ kubectl get svc web-service-clusterip
 kubectl get endpoints web-service-clusterip
 ```
 
+![ClusterIP service example](screenshots/clusterip/01.png)
+
 ### 2. NodePort
 
 NodePort exposes the application on a port on every worker node. In this example, the application is available on port `30080`.
@@ -36,6 +38,8 @@ kubectl get svc web-service-nodeport
 
 The port mapping is shown as `80:30080/TCP`, where `80` is the Service port and `30080` is the node port.
 
+![NodePort service example](screenshots/nodeport/01.png)
+
 ### 3. LoadBalancer
 
 LoadBalancer requests an external load balancer from the cloud provider. On a local cluster, the external address may remain `<pending>`.
@@ -45,6 +49,8 @@ kubectl apply -f session-11-kubernetes-services/03-loadbalancer/app-deployment.y
 kubectl apply -f session-11-kubernetes-services/03-loadbalancer/service.yaml
 kubectl get svc web-service-loadbalancer
 ```
+
+![LoadBalancer service example](screenshots/loadbalancer/01.png)
 
 ### 4. ExternalName
 
@@ -57,6 +63,8 @@ kubectl get svc external-database-service
 kubectl exec -it dns-test-client -- nslookup external-database-service
 ```
 
+![ExternalName service example](screenshots/externalname/01.png)
+
 ### 5. Headless Service
 
 A headless Service sets `clusterIP: None`. DNS returns the addresses of the matching Pods instead of one virtual IP.
@@ -68,6 +76,8 @@ kubectl apply -f session-11-kubernetes-services/05-headless/client-pod.yaml
 kubectl get svc web-service-headless
 kubectl get pods -l app=web-headless -o wide
 ```
+
+![Headless service example](screenshots/headless/01.png)
 
 ## Final Verification
 
