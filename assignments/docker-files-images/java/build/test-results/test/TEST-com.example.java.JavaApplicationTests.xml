@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.java.JavaApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-09-03T04:27:56.585Z" hostname="Akshats-MacBook-Air-3.local" time="1.1">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.java.JavaApplicationTests" time="0.373"/>
+  <system-out><![CDATA[09:57:56.675 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.java.JavaApplicationTests]: JavaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:57:56.732 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.java.JavaApplication for test class com.example.java.JavaApplicationTests
+09:57:56.780 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.java.JavaApplicationTests]: JavaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:57:56.781 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.java.JavaApplication for test class com.example.java.JavaApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-03T09:57:56.917+05:30  INFO 89283 --- [java] [    Test worker] com.example.java.JavaApplicationTests    : Starting JavaApplicationTests using Java 17.0.18 with PID 89283 (started by akshatsipany in /Users/akshatsipany/SST/devops-heros/assignments/docker-files-images/java)
+2026-09-03T09:57:56.917+05:30  INFO 89283 --- [java] [    Test worker] com.example.java.JavaApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-09-03T09:57:57.307+05:30  INFO 89283 --- [java] [    Test worker] com.example.java.JavaApplicationTests    : Started JavaApplicationTests in 0.483 seconds (process running for 1.033)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
