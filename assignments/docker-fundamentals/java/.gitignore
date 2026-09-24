@@ -1,0 +1,19 @@
+# Gradle and Java build outputs
+.gradle/
+build/
+bin/
+out/
+target/
+*.class
+*.jar
+*.war
+
+# IDE files
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+# OS
+.DS_Store
