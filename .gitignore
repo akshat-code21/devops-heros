@@ -1,2 +1,71 @@
-./node_modules/
-.zip
+# ========================
+# OS / Editor
+# ========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+.pytest_cache/
+
+# ========================
+# Terraform
+# ========================
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+!*.tfvars.example
+
+# ========================
+# Java / Gradle / Maven
+# ========================
+.gradle/
+build/
+bin/
+out/
+target/
+*.class
+*.jar
+*.war
+.classpath
+.project
+.settings/
+
+# ========================
+# Build / Artifacts
+# ========================
+build/
+*.zip
+
+# ========================
+# Secrets / Credentials
+# ========================
+.env
+*.pem
+*.key
+*.secret
