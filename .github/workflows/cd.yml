@@ -1,0 +1,107 @@
+# ============================================================
+# CD Pipeline - Continuous Delivery / Deployment
+# ============================================================
+# This workflow runs AFTER the CI pipeline completes successfully.
+# It demonstrates:
+#   - Workflow chaining (workflow_run trigger)
+#   - Docker image build and push
+#   - Secrets (DOCKERHUB_USERNAME, DOCKERHUB_TOKEN)
+#   - Deployment simulation
+#   - Environment protection
+# ============================================================
+
+name: CD Pipeline
+
+on:
+  # Trigger after CI pipeline completes on main branch
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+    branches:
+      - main
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: assignments/github-actions
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: Build Docker Image
+  # Builds and tags the Docker image
+  # Uses: Secrets for Docker Hub credentials
+  # ──────────────────────────────────────────────
+  docker-build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    # Only run if the CI pipeline succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./assignments/github-actions
+          target: production
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }}
+
+      - name: Image digest
+        run: echo "Image pushed successfully!"
+
+  # ──────────────────────────────────────────────
+  # Job 2: Deploy to Staging
+  # Simulates deployment to a staging environment
+  # ──────────────────────────────────────────────
+  deploy-staging:
+    name: Deploy to Staging
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate Staging Deployment
+        run: |
+          echo "========================================="
+          echo "  Deploying to STAGING Environment"
+          echo "========================================="
+          echo ""
+          echo "📦 Image: calculator-app:${{ github.sha }}"
+          echo "🌍 Environment: Staging"
+          echo "📅 Deployed at: $(date)"
+          echo ""
+          echo "✅ Staging deployment successful!"
+
+  # ──────────────────────────────────────────────
+  # Job 3: Deploy to Production
+  # Simulates deployment to production
+  # Requires staging to pass first
+  # ──────────────────────────────────────────────
+  deploy-production:
+    name: Deploy to Production
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate Production Deployment
+        run: |
+          echo "========================================="
+          echo "  Deploying to PRODUCTION Environment"
+          echo "========================================="
+          echo ""
+          echo "📦 Image: calculator-app:${{ github.sha }}"
+          echo "🌍 Environment: Production"
+          echo "📅 Deployed at: $(date)"
+          echo ""
+          echo "🚀 Production deployment successful!"
