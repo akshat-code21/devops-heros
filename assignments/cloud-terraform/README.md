@@ -174,20 +174,18 @@ cloud-terraform/
 ├── userdata.sh.tftpl        # Bootstrap template installing Nginx & dashboard
 ├── README.md                # Comprehensive documentation and guides
 └── screenshots/             # Verification screenshots folder
-    ├── README.md            # Detailed screenshot capture checklist
-    ├── 01-terraform-init.png
-    ├── 02-terraform-validate.png
-    ├── 03-terraform-plan.png
-    ├── 04-terraform-apply.png
-    ├── 05-terraform-state-list.png
-    ├── 06-terraform-output.png
-    ├── 07-web-browser-verification.png
-    ├── 08-aws-vpc-console.png
-    ├── 09-aws-subnet-console.png
-    ├── 10-aws-security-group.png
-    ├── 11-aws-ec2-console.png
-    ├── 12-aws-s3-console.png
-    └── 13-terraform-destroy.png
+  ├── README.md            # Screenshot capture checklist
+  ├── 01.png
+  ├── 02.png
+  ├── 03.png
+  ├── 04.png
+  ├── 05.png
+  ├── 06.png
+  ├── browser.png
+  ├── ec2-instances.png
+  ├── s3-instances.png
+  ├── sec-grps.png
+  └── vpcs.png
 ```
 
 ---
@@ -290,21 +288,19 @@ Destroy complete! Resources: 12 destroyed.
 
 ### Screenshot Checklist
 
-| File | What to Capture | Source |
-|---|---|---|
-| [`screenshots/01-terraform-init.png`](./screenshots/01-terraform-init.png) | Successful initialization and provider installation | Terminal |
-| [`screenshots/02-terraform-validate.png`](./screenshots/02-terraform-validate.png) | `Success! The configuration is valid.` | Terminal |
-| [`screenshots/03-terraform-plan.png`](./screenshots/03-terraform-plan.png) | Execution plan with `Plan: 12 to add...` | Terminal |
-| [`screenshots/04-terraform-apply.png`](./screenshots/04-terraform-apply.png) | Successful apply output with generated outputs | Terminal |
-| [`screenshots/05-terraform-state-list.png`](./screenshots/05-terraform-state-list.png) | `terraform state list` command output | Terminal |
-| [`screenshots/06-terraform-output.png`](./screenshots/06-terraform-output.png) | `terraform output` terminal display | Terminal |
-| [`screenshots/07-web-browser-verification.png`](./screenshots/07-web-browser-verification.png) | Browser displaying the live EC2 web server dashboard | Browser |
-| [`screenshots/08-aws-vpc-console.png`](./screenshots/08-aws-vpc-console.png) | AWS VPC console showing `cloud-terraform-demo-vpc` | AWS Console |
-| [`screenshots/09-aws-subnet-console.png`](./screenshots/09-aws-subnet-console.png) | AWS Subnets console showing `cloud-terraform-demo-public-subnet` | AWS Console |
-| [`screenshots/10-aws-security-group.png`](./screenshots/10-aws-security-group.png) | AWS Security Groups showing HTTP & SSH inbound rules | AWS Console |
-| [`screenshots/11-aws-ec2-console.png`](./screenshots/11-aws-ec2-console.png) | AWS EC2 console showing running instance and public IP | AWS Console |
-| [`screenshots/12-aws-s3-console.png`](./screenshots/12-aws-s3-console.png) | AWS S3 console showing bucket properties (encryption & versioning) | AWS Console |
-| [`screenshots/13-terraform-destroy.png`](./screenshots/13-terraform-destroy.png) | Successful `terraform destroy` confirmation | Terminal |
+| File | Evidence |
+|---|---|
+| [`screenshots/01.png`](./screenshots/01.png) | Terraform plan and EC2 update output |
+| [`screenshots/02.png`](./screenshots/02.png) | Terraform apply and output values |
+| [`screenshots/03.png`](./screenshots/03.png) | Terraform state list and outputs |
+| [`screenshots/04.png`](./screenshots/04.png) | Terraform initialization and validation |
+| [`screenshots/05.png`](./screenshots/05.png) | Terraform apply, state, and output evidence |
+| [`screenshots/06.png`](./screenshots/06.png) | Terraform plan and apply output |
+| [`screenshots/browser.png`](./screenshots/browser.png) | Browser verification of the NGINX web server |
+| [`screenshots/ec2-instances.png`](./screenshots/ec2-instances.png) | AWS EC2 console showing a running instance |
+| [`screenshots/s3-instances.png`](./screenshots/s3-instances.png) | AWS S3 console showing managed buckets |
+| [`screenshots/sec-grps.png`](./screenshots/sec-grps.png) | AWS security group evidence |
+| [`screenshots/vpcs.png`](./screenshots/vpcs.png) | AWS VPC console showing the project VPC |
 
 ---
 
@@ -339,43 +335,19 @@ Destroy complete! Resources: 12 destroyed.
 
 ### Screenshot Verification Gallery
 
-*(Place image files inside the [`screenshots/`](./screenshots) directory with matching filenames to render below)*
+#### Terraform terminal evidence
 
-#### 01. Terraform Init
-![Terraform Init](screenshots/01-terraform-init.png)
+![Terraform plan and EC2 update](screenshots/01.png)
+![Terraform apply outputs](screenshots/02.png)
+![Terraform state list and outputs](screenshots/03.png)
+![Terraform initialization and validation](screenshots/04.png)
+![Terraform apply and state output](screenshots/05.png)
+![Terraform plan and apply](screenshots/06.png)
 
-#### 02. Terraform Validate
-![Terraform Validate](screenshots/02-terraform-validate.png)
+#### AWS and browser verification
 
-#### 03. Terraform Plan
-![Terraform Plan](screenshots/03-terraform-plan.png)
-
-#### 04. Terraform Apply
-![Terraform Apply](screenshots/04-terraform-apply.png)
-
-#### 05. Terraform State List
-![Terraform State List](screenshots/05-terraform-state-list.png)
-
-#### 06. Terraform Output
-![Terraform Output](screenshots/06-terraform-output.png)
-
-#### 07. Web Browser Verification
-![Web Browser Verification](screenshots/07-web-browser-verification.png)
-
-#### 08. AWS VPC Console
-![AWS VPC Console](screenshots/08-aws-vpc-console.png)
-
-#### 09. AWS Subnet Console
-![AWS Subnet Console](screenshots/09-aws-subnet-console.png)
-
-#### 10. AWS Security Group
-![AWS Security Group](screenshots/10-aws-security-group.png)
-
-#### 11. AWS EC2 Console
-![AWS EC2 Console](screenshots/11-aws-ec2-console.png)
-
-#### 12. AWS S3 Console
-![AWS S3 Console](screenshots/12-aws-s3-console.png)
-
-#### 13. Terraform Destroy
-![Terraform Destroy](screenshots/13-terraform-destroy.png)
+![Browser NGINX verification](screenshots/browser.png)
+![EC2 instances console](screenshots/ec2-instances.png)
+![S3 buckets console](screenshots/s3-instances.png)
+![Security groups console](screenshots/sec-grps.png)
+![VPC console](screenshots/vpcs.png)

@@ -472,28 +472,45 @@ Incident 5: Ingress 502 Bad Gateway (Port mismatch between Ingress & Service)
 
 ---
 
-## 14. Screenshots Guide & Evidence Checklist
+## 14. Screenshots Guide & Evidence
 
-To fulfill all requirements in the capstone grading rubric (100 points), prepare the following evidence screenshots:
+The project includes 23 captured evidence images. The filenames below are the
+actual files stored in `screenshots/`.
 
-| Module | Required Evidence Screenshot | Command / View | Expected Result |
-| :--- | :--- | :--- | :--- |
-| **M1** | Running Application in Browser | Browser at `http://localhost:3000` | TaskBoard UI loaded with task list & stats |
-| **M2** | Automated Testing | Terminal: `pytest -v` | 8/8 tests passing in green |
-| **M3** | Git Version Control | Terminal: `git log --oneline -n 10` | 10+ clean semantic commits |
-| **M4** | Docker Compose Stack | Terminal: `docker compose ps` | postgres, backend, frontend all `Up (healthy)` |
-| **M5** | GitHub Actions CI/CD Pipeline | GitHub Actions Run Page | All 5 pipeline stages showing green checkmarks |
-| **M5** | GHCR Container Registry | GitHub Packages / GHCR UI | Images published with SHA tags (not `latest`) |
-| **M6** | Trivy Security Scan Output | GitHub Actions Trivy step log | Table showing 0 HIGH/CRITICAL vulnerabilities |
-| **M7** | Terraform Plan Output | Terminal: `terraform plan` | Plan: X to add, 0 to change, 0 to destroy |
-| **M7** | AWS EKS Console / Teardown | AWS Console / `terraform destroy` | EKS Cluster active / clean teardown screenshot |
-| **M8** | Kubernetes Running Pods | Terminal: `kubectl get pods -n taskboard` | All pods in `Running` state (2 frontend, 2 backend, 1 db) |
-| **M8** | Kubernetes Services & Ingress | Terminal: `kubectl get svc,ingress,hpa -n taskboard` | ClusterIPs bound, Ingress host active, HPA active |
-| **M8** | Helm Release | Terminal: `helm list -n taskboard` | Release `taskboard` in `deployed` status |
-| **M9** | Backend Metrics Endpoint | Terminal: `curl http://<backend>/metrics` | Prometheus metrics with `http_requests_total` |
-| **M9** | Grafana Observability Dashboard | Browser at Grafana UI | Live dashboards showing RPS, latency, and CPU usage |
-| **GitOps**| ArgoCD UI Sync Status | Browser at ArgoCD UI | Application status showing `Synced` and `Healthy` |
-| **Lab** | Troubleshooting Verification | Terminal: `kubectl get pods` after fix | Remediated pod returning to `Running` |
+### Application, containers, and cluster
+
+![Docker and local service evidence](screenshots/01-1.png)
+![Kubernetes workload evidence](screenshots/01-2.png)
+![Kubernetes and Helm deployment evidence](screenshots/02.png)
+![Helm release status](screenshots/03.png)
+
+### Testing and security
+
+![Backend test suite with 8 tests passing](screenshots/04.png)
+![Successful Trivy container scans](screenshots/05.png)
+
+### Terraform and AWS infrastructure
+
+![Terraform initialization and validation](screenshots/06.png)
+![Terraform planning and infrastructure changes](screenshots/07.png)
+![Terraform infrastructure evidence 08-1](screenshots/08-1.png)
+![Terraform infrastructure evidence 08-2](screenshots/08-2.png)
+![Terraform infrastructure evidence 08-3](screenshots/08-3.png)
+![Terraform infrastructure evidence 08-4](screenshots/08-4.png)
+![Terraform infrastructure evidence 08-5](screenshots/08-5.png)
+![Terraform infrastructure evidence 08-6](screenshots/08-6.png)
+
+### Application and platform verification
+
+![TaskBoard browser verification](screenshots/browser.png)
+![AWS and Kubernetes platform evidence](screenshots/09.png)
+![Kubernetes workload evidence](screenshots/10.png)
+![Helm release evidence](screenshots/11.png)
+![Prometheus metrics evidence](screenshots/12.png)
+![Grafana dashboard evidence](screenshots/13.png)
+![Argo CD synchronization evidence](screenshots/14.png)
+![GitHub Actions pipeline evidence](screenshots/15.png)
+![Troubleshooting recovery evidence](screenshots/16.png)
 
 ---
 
