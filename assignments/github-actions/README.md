@@ -333,14 +333,13 @@ CI/CD
 
 ## 📸 Screenshots
 
-> After pushing to GitHub, take screenshots of:
-> 1. **CI Pipeline** — All jobs passing (Actions tab)
-> 2. **CD Pipeline** — Docker build + deployment jobs
-> 3. **Artifact** — Downloaded `calculator-build` artifact
-> 4. **Failure scenario** — Test failure blocking build
-> 5. **Recovery** — All jobs passing after fix
+### CI Pipeline Success
 
-Place screenshots in a `screenshots/` directory and reference them here.
+The GitHub Actions CI workflow completed successfully. Test Application, Lint Code,
+Build Application, and Security Check all passed, and one build artifact was
+published.
+
+![Successful GitHub Actions CI pipeline](screenshots/01.png)
 
 ---
 

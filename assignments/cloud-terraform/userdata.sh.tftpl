@@ -1,0 +1,180 @@
+#!/bin/bash
+set -e
+
+# Update and install Nginx
+if command -v dnf &> /dev/null; then
+    dnf update -y
+    dnf install -y nginx
+elif command -v yum &> /dev/null; then
+    yum update -y
+    amazon-linux-extras install nginx1 -y || yum install -y nginx
+elif command -v apt-get &> /dev/null; then
+    apt-get update -y
+    apt-get install -y nginx
+fi
+
+# Fetch EC2 instance metadata (IMDSv2)
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" || true)
+if [ -n "$TOKEN" ]; then
+    INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id || echo "Unknown")
+    AZ=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone || echo "Unknown")
+    PUBLIC_IP=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4 || echo "Unknown")
+else
+    INSTANCE_ID="i-demo"
+    AZ="ap-south-1a"
+    PUBLIC_IP="Auto"
+fi
+
+# Deploy custom web dashboard
+cat <<HTML > /tmp/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 19: Cloud & Terraform in Action</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: #7c3aed;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin: 0 0 24px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .item {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .item .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .item .value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #38bdf8;
+      word-break: break-all;
+    }
+    .footer {
+      border-top: 1px solid #334155;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Session 19: DevOps Heros</span>
+    <h1>Cloud & Terraform in Action</h1>
+    <p class="subtitle">End-to-End Cloud Infrastructure automated with HashiCorp Terraform</p>
+
+    <div class="grid">
+      <div class="item">
+        <div class="label">Project Name</div>
+        <div class="value">${project_name}</div>
+      </div>
+      <div class="item">
+        <div class="label">Environment</div>
+        <div class="value">${environment}</div>
+      </div>
+      <div class="item">
+        <div class="label">AWS Region</div>
+        <div class="value">${aws_region}</div>
+      </div>
+      <div class="item">
+        <div class="label">Availability Zone</div>
+        <div class="value">`$AZ`</div>
+      </div>
+      <div class="item">
+        <div class="label">EC2 Instance ID</div>
+        <div class="value">`$INSTANCE_ID`</div>
+      </div>
+      <div class="item">
+        <div class="label">Public IP</div>
+        <div class="value">`$PUBLIC_IP`</div>
+      </div>
+      <div class="item" style="grid-column: span 2;">
+        <div class="label">Associated S3 Bucket</div>
+        <div class="value">${s3_bucket_name}</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div><span class="status-dot"></span>Infrastructure Status: <strong>HEALTHY (Terraform Managed)</strong></div>
+      <div>Session 19 Assignment</div>
+    </div>
+  </div>
+</body>
+</html>
+HTML
+
+mkdir -p /var/www/html /usr/share/nginx/html
+cp /tmp/index.html /var/www/html/index.html || true
+cp /tmp/index.html /var/www/html/index.nginx-debian.html || true
+cp /tmp/index.html /usr/share/nginx/html/index.html || true
+
+
+# Enable and start Nginx service
+systemctl enable nginx
+systemctl restart nginx

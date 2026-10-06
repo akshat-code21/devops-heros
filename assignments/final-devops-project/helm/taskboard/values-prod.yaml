@@ -1,0 +1,11 @@
+frontend:
+  image: ghcr.io/akshat-code21/taskboard-frontend
+backend:
+  image: ghcr.io/akshat-code21/taskboard-backend
+replicaCount: 2
+ingress:
+  enabled: true
+  host: taskboard.local
+hpa:
+  enabled: true
+

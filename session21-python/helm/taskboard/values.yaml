@@ -1,8 +1,8 @@
 frontend:
-  image: ghcr.io/YOUR_ORG/taskboard-frontend
+  image: ghcr.io/akshat-code21/taskboard-frontend
   tag: latest
 backend:
-  image: ghcr.io/YOUR_ORG/taskboard-backend
+  image: ghcr.io/akshat-code21/taskboard-backend
   tag: latest
 replicaCount: 2
 namespace: taskboard
@@ -25,4 +25,5 @@ resources:
   limits: {cpu: 500m, memory: 512Mi}
 monitoring:
   serviceMonitor:
-    enabled: true
+    enabled: false
+

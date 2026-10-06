@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: taskboard-alerts
+  namespace: taskboard
+  labels:
+    release: prometheus
+    role: alert-rules
+spec:
+  groups:
+    - name: taskboard.rules
+      rules:
+        - alert: TaskBoardBackendDown
+          expr: up{job="taskboard-backend-metrics"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "TaskBoard backend is unreachable"
+            description: "No metrics scraped from TaskBoard backend for over 1 minute."
+
+        - alert: TaskBoardHigh5xxErrorRate
+          expr: sum(rate(http_requests_total{status=~"5.."}[2m])) / sum(rate(http_requests_total[2m])) * 100 > 5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High HTTP 5xx error rate detected"
+            description: "TaskBoard backend 5xx responses exceed 5% over the last 2 minutes."
